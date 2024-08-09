@@ -3,7 +3,7 @@ module github.com/l3af-project/l3afd/v2
 go 1.21
 
 require (
-	github.com/cilium/ebpf v0.12.3
+	github.com/cilium/ebpf v0.16.0
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/mitchellh/go-ps v1.0.0
 	github.com/prometheus/client_golang v1.19.1
@@ -16,7 +16,7 @@ require (
 )
 
 require (
-	github.com/florianl/go-tc v0.4.3
+	github.com/florianl/go-tc v0.4.4
 	github.com/golang/mock v1.6.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
