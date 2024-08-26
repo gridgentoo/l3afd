@@ -32,6 +32,7 @@ type Config struct {
 	BpfMapDefaultPath   string
 	// Flag to enable chaining with root program
 	BpfChainingEnabled bool
+	TimetoRestart      int
 
 	FileLogLocation   string
 	FileLogMaxSize    int
@@ -88,6 +89,12 @@ type Config struct {
 	MTLSServerKeyFilename     string
 	MTLSCertExpiryWarningDays int
 	MTLSSANMatchRules         []string
+
+	// RestartConfig
+	HostSock    string
+	StateSock   string
+	BaseBinPath string
+	BaseCfgPath string
 }
 
 // ReadConfig - Initializes configuration from file
@@ -114,6 +121,7 @@ func ReadConfig(configPath string) (*Config, error) {
 		FileLogMaxSize:                 LoadOptionalConfigInt(confReader, "l3afd", "file-log-max-size", 100),
 		FileLogMaxBackups:              LoadOptionalConfigInt(confReader, "l3afd", "file-log-max-backups", 20),
 		FileLogMaxAge:                  LoadOptionalConfigInt(confReader, "l3afd", "file-log-max-age", 60),
+		TimetoRestart:                  LoadOptionalConfigInt(confReader, "l3afd", "time-to-restart", 7),
 		EBPFRepoURL:                    LoadConfigString(confReader, "ebpf-repo", "url"),
 		HttpClientTimeout:              LoadOptionalConfigDuration(confReader, "l3afd", "http-client-timeout", 30*time.Second),
 		MaxEBPFReStartCount:            LoadOptionalConfigInt(confReader, "l3afd", "max-ebpf-restart-count", 3),
@@ -154,6 +162,10 @@ func ReadConfig(configPath string) (*Config, error) {
 		MTLSServerKeyFilename:          LoadOptionalConfigString(confReader, "mtls", "server-key-filename", "server.key"),
 		MTLSCertExpiryWarningDays:      LoadOptionalConfigInt(confReader, "mtls", "cert-expiry-warning-days", 30),
 		MTLSSANMatchRules:              strings.Split(LoadOptionalConfigString(confReader, "mtls", "san-match-rules", ""), ","),
+		HostSock:                       LoadOptionalConfigString(confReader, "restart-config", "hostsock", "/tmp/l3afd.sock"),
+		StateSock:                      LoadOptionalConfigString(confReader, "restart-config", "statesock", "/tmp/l3afstate.sock"),
+		BaseBinPath:                    LoadOptionalConfigString(confReader, "restart-config", "basebinpath", "/usr/local/l3afd"),
+		BaseCfgPath:                    LoadOptionalConfigString(confReader, "restart-config", "basecfgpath", "/usr/local/l3afd"),
 	}, nil
 }
 
