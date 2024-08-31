@@ -75,12 +75,12 @@ jobs:
           sudo docker build -t l3afd:latest -f ./build-docker/Dockerfile ./build-docker
           sudo docker save l3afd:latest > l3afd-docker-img-linux-x86_64.tar
 
-      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a
+      - uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
         with:
           name: l3afd-latest-linux-x86_64
           path: l3afd
 
-      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a
+      - uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
         with:
           name: l3afd-docker-img-linux-x86_64.tar
           path: l3afd-docker-img-linux-x86_64.tar
